@@ -55,7 +55,7 @@ namespace Docs.Controllers
                 folder.Folders.Add(nFolder);
             }
                 
-            foreach (string file in Directory.GetFiles(path))
+            foreach (string file in Directory.GetFiles(path, "*.md"))
                 folder.Files.Add(file);
 
             return folder;
