@@ -1,0 +1,36 @@
+﻿@model Docs.Models.Folder
+
+
+<div class="accordion mb-2" id="A_root">
+	@foreach(var folder in Model.Folders)
+	{
+		string dName = System.IO.Path.GetFileName(folder.Dir);
+
+		<div class="card">
+			<div class="card-header" id="H_@dName">
+				<h2 class="mb-0">
+
+					<a data-bs-toggle="collapse" data-bs-target="#C_@dName" aria-expanded="false" aria-controls="#C_@dName">
+						<span>@dName</span>
+						<i class="fa fa-chevron-down toggle"></i>
+					</a>
+				</h2>
+			</div>
+			<div id="C_@dName" class="collapse" aria-labelledby="H_@dName" data-parent="#A_root">
+				<div class="card-body">
+					<ul class="list-group">
+
+						@foreach (var file in folder.Files)
+						{
+							string fName = System.IO.Path.GetFileNameWithoutExtension(file);
+
+							<li class="list-group-item"><a asp-controller="Home" asp-action="Index" asp-route-id="@file">@fName</a></li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+

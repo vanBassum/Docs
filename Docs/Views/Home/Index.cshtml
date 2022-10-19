@@ -1,0 +1,19 @@
+﻿@model Docs.Models.Contents
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+	<div class="menu col">
+			
+		<partial name="_MenuFolder" model="Model.Root" />
+			
+	</div>
+	<div class="col mr-4">
+		<div class="GetPartial pageContent" data-uri="/Home/GetContent" data-id="@Model.Name">
+            Loading information
+        </div>
+	</div>
+</div>
+
