@@ -46,5 +46,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}, ${{ secrets.DOCKERHUB_USERNAME }}/imageimporter:latest, ${{ secrets.DOCKERHUB_USERNAME }}/imageimporter:${{steps.slug.outputs.sha7}}
+          tags: ${{ steps.meta.outputs.tags }}, ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest, ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{steps.slug.outputs.sha7}}
           labels: ${{ steps.meta.outputs.labels }}
