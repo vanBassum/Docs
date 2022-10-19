@@ -11,7 +11,7 @@ on:
       - v[0-9]+.[0-9]+.[0-9]+
 env:
   REGISTRY: vanbassum
-  IMAGE_NAME: imageimporter
+  IMAGE_NAME: docs
   
 jobs:
   build:
