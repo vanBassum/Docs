@@ -1,4 +1,5 @@
 using Docs.Hubs;
+using Docs.Models;
 using Docs.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<FileWatcherService>();
+builder.Services.AddScoped<SettingsManager<Settings>>();
 
 var app = builder.Build();
 
