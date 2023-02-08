@@ -20,6 +20,12 @@ namespace Docs.Controllers
             _settingsManager = settingsManager;
         }
 
+        Dictionary<string, Func<string, string>> converters = new Dictionary<string, Func<string, string>> {
+            { ".md", (filename) => Markdown.ToHtml(System.IO.File.ReadAllText(filename)) },
+            { ".html", (filename) => System.IO.File.ReadAllText(filename) },
+        };
+
+
         public IActionResult Index(string? id)
         {
             Contents contents = new Contents();
@@ -54,9 +60,13 @@ namespace Docs.Controllers
                 nFolder.Expanded = req == ddir;
                 folder.Folders.Add(nFolder);
             }
-                
-            foreach (string file in Directory.GetFiles(path, "*.md"))
-                folder.Files.Add(file);
+
+            foreach (string file in Directory.GetFiles(path))
+            { 
+                string extention = Path.GetExtension(file); 
+                if(converters.ContainsKey(extention))
+                    folder.Files.Add(file);
+            }
 
             return folder;
         }
@@ -71,8 +81,15 @@ namespace Docs.Controllers
 
             if (System.IO.File.Exists(id))
             {
-                string markdown = System.IO.File.ReadAllText(id);
-                content = Markdown.ToHtml(markdown);
+                string extention = Path.GetExtension(id);
+                if(converters.TryGetValue(extention, out Func<string, string> converter ))
+                {
+                    content = converter(id);
+                }
+                else
+                {
+                    content = $"No support for '{extention}' formats";
+                }
             }
             else
             {
@@ -81,7 +98,6 @@ namespace Docs.Controllers
 
             return PartialView("_Content", content);
         }
-
 
 
 

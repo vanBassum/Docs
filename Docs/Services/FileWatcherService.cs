@@ -15,7 +15,7 @@ namespace Docs.Services
         public FileWatcherService(IHubContext<FileChangeHub> hub)
         {
             _hub = hub;
-
+            Directory.CreateDirectory(@"wwwroot/docs");
             _watcher = new FileSystemWatcher(@"wwwroot/docs");
             _watcher.NotifyFilter = NotifyFilters.Attributes
                                   | NotifyFilters.CreationTime
